@@ -1,7 +1,8 @@
 import React from "react";
-import Header from "./Header";
 import { NavLink } from "react-router-dom";
 import validate from "../utils/validate";
+import { loginURL } from "../utils/constant";
+import { withRouter } from "react-router";
 
 class Login extends React.Component {
   constructor(props) {
@@ -27,13 +28,48 @@ class Login extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const { email, password } = this.state;
+    fetch(loginURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: {
+          email,
+          password,
+        },
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then(({ errors }) => {
+            return Promise.reject(errors);
+          });
+        }
+        return res.json();
+      })
+      .then(({ user }) => {
+        this.props.updateUser(user);
+        this.props.history.push("/");
+      })
+      .catch((errors) =>
+        this.setState((prevState) => {
+          return {
+            ...prevState,
+            errors: {
+              ...prevState.errors,
+              email: "Email or password is incorrect!",
+            },
+          };
+        })
+      );
   };
 
   render() {
     let { email, password } = this.state.errors;
     return (
       <div className="container">
-        <Header />
         <h1>Sign in</h1>
         <NavLink activeClassName="account-color" to="/signup">
           <h3 className="account">Need an account?</h3>
@@ -66,4 +102,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

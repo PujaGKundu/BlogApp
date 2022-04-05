@@ -15,7 +15,7 @@ export default function validate(errors, name, value) {
         passwordError = "Password can't be less than 6 characters";
       }
       let re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]/;
-      if (re.test(value)) {
+      if (!re.test(value)) {
         passwordError = "Password must contain a letter and a number";
       }
       errors.password = passwordError;

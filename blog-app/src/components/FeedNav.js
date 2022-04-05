@@ -6,13 +6,13 @@ function FeedNav(props) {
       <ul className="flex">
         <li onClick={props.emptyTag}>
           <Link className={props.activeTag === "" && "active"} to="/">
-            <h3>Global Feed</h3>
+            Global Feed
           </Link>
         </li>
         {props.activeTag && (
           <li>
             <Link className={props.activeTag === "active"} to="/">
-              <h3># {props.activeTag}</h3>
+              # {props.activeTag}
             </Link>
           </li>
         )}

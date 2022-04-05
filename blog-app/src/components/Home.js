@@ -1,4 +1,3 @@
-import Header from "./Header";
 import FeedNav from "./FeedNav";
 import Banner from "./Banner";
 import Articles from "./Articles";
@@ -81,7 +80,6 @@ class Home extends React.Component {
     } = this.state;
     return (
       <>
-        <Header />
         <main>
           <Banner />
           <div className="container">

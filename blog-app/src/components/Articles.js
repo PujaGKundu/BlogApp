@@ -22,13 +22,23 @@ function Articles(props) {
     <div className="articles">
       {articles.map((article) => (
         <section key={article.slug} className="article">
-          <div className="flex jc-start al-center">
-            <img src={article.author.image} alt={article.author.username}></img>
-            <div>
-              <h3>{article.author.username}</h3>
-              <p className="date">{article.createdAt}</p>
+          <div className="flex jc-between al-start">
+            <div className="flex jc-start al-center">
+              <img
+                src={article.author.image}
+                alt={article.author.username}
+              ></img>
+              <div>
+                <h3>{article.author.username}</h3>
+                <p className="date">{article.createdAt}</p>
+              </div>
+            </div>
+            <div className="heart">
+              <i class="fa fa-heart fa-xs" aria-hidden="true"></i>
+              <span>{article.favoritesCount}</span>
             </div>
           </div>
+
           <h2>{article.title}</h2>
           <p className="des">{article.description}</p>
           <div className="flex jc-between al-center">

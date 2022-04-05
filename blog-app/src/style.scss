@@ -63,11 +63,17 @@ body {
 .active-nav {
   text-decoration: none;
   color: $black;
+  &:hover {
+    color: $primary;
+  }
 }
 
 .unselected {
   color: $secondary;
   text-decoration: none;
+  &:hover {
+    color: $primary;
+  }
 }
 
 li {
@@ -91,19 +97,15 @@ li {
   font-weight: 300;
 }
 
-.article-heading li h3 {
+.active {
   font-size: 1rem;
   text-transform: capitalize;
-  color: $primary;
   margin-top: 2rem;
-}
-
-Link {
-  text-decoration: none;
+  color: $primary;
 }
 
 hr {
-  color: $secondary;
+  color: $tertary;
 }
 
 .tags {
@@ -126,6 +128,19 @@ hr {
 .article {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  .heart {
+    padding: 0.3rem;
+    border: 1px solid $primary;
+    color: $primary;
+    border-radius: 0.3rem;
+    i {
+      color: $primary;
+    }
+    span {
+      font-size: 1rem;
+      margin-left: 0.3rem;
+    }
+  }
 }
 
 .article img,
@@ -186,7 +201,7 @@ h1 {
 
 h6 {
   text-align: center;
-  p {
+  .link {
     color: $primary;
   }
 }
@@ -205,7 +220,12 @@ form {
   margin-top: 2rem;
 }
 
-input {
+.post {
+  width: 1000px;
+}
+
+input,
+textarea {
   width: 100%;
   margin: 0.5rem 0;
   padding: 0.6rem 1rem;
@@ -226,6 +246,13 @@ input {
   position: absolute;
   right: -1.4rem;
   bottom: -4rem;
+}
+
+.logout {
+  color: brown;
+  border: 1px solid brown;
+  padding: 0.8rem 1.6rem;
+  border-radius: 0.3rem;
 }
 
 .submit:hover {
@@ -253,4 +280,27 @@ ul {
 
 .single-article {
   margin-top: 2rem;
+}
+
+.profile-hero {
+  background-color: $tertary;
+  padding: 2rem 0;
+  text-align: center;
+  position: relative;
+  img {
+    width: 150px;
+    border-radius: 50%;
+  }
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+  .btn {
+    border: 1px solid $secondary;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.3rem;
+    position: absolute;
+    right: 10rem;
+    bottom: 1rem;
+  }
 }

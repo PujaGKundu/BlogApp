@@ -1,7 +1,7 @@
 import Loader from "./Loader";
 import React from "react";
-import Header from "./Header";
 import { articlesURL } from "../utils/constant";
+import { Link } from "react-router-dom";
 
 class IndivisualArticle extends React.Component {
   state = {
@@ -46,7 +46,6 @@ class IndivisualArticle extends React.Component {
 
     return (
       <>
-        <Header />
         <main>
           <div className="article-hero">
             <div className="container">
@@ -71,8 +70,14 @@ class IndivisualArticle extends React.Component {
             </ul>
             <hr />
             <h6 className="flex">
-              <p>Sign up </p>&nbsp; or &nbsp;<p>Sign in</p>&nbsp; to add
-              comments on this article.
+              <Link className="link" to="/signup">
+                Sign up{" "}
+              </Link>
+              &nbsp; or &nbsp;
+              <Link className="link" to="/signin">
+                Sign in
+              </Link>
+              &nbsp; to add comments on this article.
             </h6>
           </div>
         </main>

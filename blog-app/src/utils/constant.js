@@ -4,4 +4,26 @@ const articlesURL = ROOT_URL + "articles";
 
 const tagsURL = ROOT_URL + "tags";
 
-export { ROOT_URL, articlesURL, tagsURL };
+const signupURL = ROOT_URL + "users";
+
+const loginURL = ROOT_URL + "users/login";
+
+const localStorageKey = "app_user";
+
+const userVerifyURL = ROOT_URL + "/user";
+
+export {
+  ROOT_URL,
+  articlesURL,
+  tagsURL,
+  signupURL,
+  loginURL,
+  localStorageKey,
+  userVerifyURL,
+};
+
+/*
+username: jacoob
+email: jack@gmail.com
+password: Jack@12345
+*/

@@ -42,7 +42,7 @@ class Tags extends React.Component {
       <ul className="flex flex-wrap">
         {tags.map((list, i) => {
           return (
-            <li className="tag" onClick={() => this.props.addTag(list)}>
+            <li key={i} className="tag" onClick={() => this.props.addTag(list)}>
               {list}
             </li>
           );
