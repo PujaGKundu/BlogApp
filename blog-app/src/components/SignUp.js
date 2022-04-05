@@ -1,5 +1,7 @@
 import React from "react";
+import Header from "./Header";
 import { NavLink } from "react-router-dom";
+import validate from "../utils/validate";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -8,50 +10,25 @@ class SignUp extends React.Component {
       username: "",
       email: "",
       password: "",
-      message: "",
       errors: {
+        username: "",
         email: "",
         password: "",
       },
     };
   }
 
-  validateEmail = (email) => {
-    const re =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  };
-
   handleInput = ({ target }) => {
     let { name, value } = target;
-    let errors = this.state.errors;
+    let errors = { ...this.state.errors };
 
-    switch (name) {
-      case "username":
-        errors.username = value === "" ? "Enter Username" : "";
-        break;
-      case "email":
-        errors.email = this.validateEmail(value) ? "" : "Email is not valid";
-        break;
-      case "password":
-        errors.password =
-          value.length > 5 ? "" : "Password cannot be less than 5 characters";
-        break;
-
-      default:
-        break;
-    }
+    validate(errors, name, value);
 
     this.setState({ errors, [name]: value });
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if (!this.state.username && !this.state.email && !this.state.password) {
-      this.setState({ message: "Enter valid credentials" });
-    } else {
-      alert("Signed in successfully");
-    }
   };
 
   render() {
@@ -59,6 +36,7 @@ class SignUp extends React.Component {
     let message = this.state.message;
     return (
       <div className="container">
+        <Header />
         <h1>Sign Up</h1>
         <NavLink activeClassName="account-color" to="/signin">
           <h3 className="account">Have an account?</h3>
@@ -67,7 +45,6 @@ class SignUp extends React.Component {
           <span className="error">{message}</span>
           <input
             type="text"
-            id="user"
             name="username"
             value={this.state.username}
             onChange={this.handleInput}
@@ -77,7 +54,6 @@ class SignUp extends React.Component {
           <span className="error">{username}</span>
           <input
             type="email"
-            id="user"
             name="email"
             value={this.state.email}
             onChange={this.handleInput}
@@ -87,7 +63,6 @@ class SignUp extends React.Component {
           <span className="error">{email}</span>
           <input
             type="password"
-            id="password"
             name="password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
             value={this.state.password}
@@ -96,8 +71,12 @@ class SignUp extends React.Component {
             className={password && "error"}
           />
           <span className="error">{password}</span>
-          <button className="submit" type="submit">
-            Sign In
+          <button
+            className="submit"
+            type="submit"
+            disabled={email || password || username}
+          >
+            Sign Up
           </button>
         </form>
       </div>

@@ -1,5 +1,7 @@
 import React from "react";
+import Header from "./Header";
 import { NavLink } from "react-router-dom";
+import validate from "../utils/validate";
 
 class Login extends React.Component {
   constructor(props) {
@@ -7,7 +9,6 @@ class Login extends React.Component {
     this.state = {
       email: "",
       password: "",
-      message: "",
       errors: {
         email: "",
         password: "",
@@ -15,74 +16,48 @@ class Login extends React.Component {
     };
   }
 
-  validateEmail = (email) => {
-    const re =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  };
+  handleChange = (event) => {
+    let { name, value } = event.target;
+    let errors = { ...this.state.errors };
 
-  handleInput = ({ target }) => {
-    let { name, value } = target;
-    let errors = this.state.errors;
+    validate(errors, name, value);
 
-    switch (name) {
-      case "email":
-        errors.email = this.validateEmail(value) ? "" : "Email is not valid";
-        break;
-      case "password":
-        errors.password =
-          value.length > 5 ? "" : "Password cannot be less than 5 characters";
-        break;
-
-      default:
-        break;
-    }
-
-    this.setState({ errors, [name]: value });
+    this.setState({ [name]: value, errors });
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if (!this.state.email && !this.state.password) {
-      this.setState({ message: "Enter Email and Password" });
-    } else {
-      alert("Logged in successfully");
-    }
   };
 
   render() {
     let { email, password } = this.state.errors;
-    let message = this.state.message;
     return (
       <div className="container">
+        <Header />
         <h1>Sign in</h1>
         <NavLink activeClassName="account-color" to="/signup">
           <h3 className="account">Need an account?</h3>
         </NavLink>
         <form onSubmit={this.handleSubmit}>
-          <span className="error">{message}</span>
           <input
             type="email"
-            id="user"
             name="email"
             value={this.state.email}
-            onChange={this.handleInput}
+            onChange={this.handleChange}
             placeholder="Email"
             className={email && "error"}
           />
           <span className="error">{email}</span>
           <input
             type="password"
-            id="password"
             name="password"
-            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
             value={this.state.password}
-            onChange={this.handleInput}
+            onChange={this.handleChange}
             placeholder="Password"
             className={password && "error"}
           />
           <span className="error">{password}</span>
-          <button className="submit" type="submit">
+          <button className="submit" type="submit" disabled={email || password}>
             Sign In
           </button>
         </form>

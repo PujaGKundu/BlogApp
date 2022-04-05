@@ -1,5 +1,6 @@
 @import "reset";
 @import "loader";
+@import "pagination";
 
 $primary: #5cb85c;
 $secondary: #818a91;
@@ -90,12 +91,15 @@ li {
   font-weight: 300;
 }
 
-.article-heading {
+.article-heading li h3 {
   font-size: 1rem;
   text-transform: capitalize;
   color: $primary;
-  border-bottom: 1px solid $primary;
   margin-top: 2rem;
+}
+
+Link {
+  text-decoration: none;
 }
 
 hr {
@@ -178,6 +182,13 @@ button {
 h1 {
   text-align: center;
   font-size: 3rem;
+}
+
+h6 {
+  text-align: center;
+  p {
+    color: $primary;
+  }
 }
 
 .account {

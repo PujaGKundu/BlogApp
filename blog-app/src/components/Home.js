@@ -1,83 +1,105 @@
-import Loader from "./Loader";
+import Header from "./Header";
+import FeedNav from "./FeedNav";
+import Banner from "./Banner";
+import Articles from "./Articles";
+import Pagination from "./Pagination";
+import Tags from "./Tags";
 import React from "react";
-import { Link } from "react-router-dom";
+
+import { articlesURL } from "../utils/constant";
 
 class Home extends React.Component {
-  render() {
-    if (!this.props.article) {
-      return (
-        <div className="container">
-          <Loader />
-        </div>
-      );
+  state = {
+    articles: null,
+    error: "",
+    articlesCount: 0,
+    articlesPerPage: 10,
+    activePage: 1,
+    activeTag: "",
+  };
+
+  emptyTag = () => {
+    this.setState({ activeTag: "" });
+  };
+
+  addTag = (value) => {
+    this.setState({ activeTag: value });
+  };
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  componentDidUpdate(_prevProps, prevState) {
+    if (
+      prevState.activePage !== this.state.activePage ||
+      prevState.activeTag !== this.state.activeTag
+    ) {
+      this.fetchData();
     }
+  }
 
-    console.log(this.props);
+  fetchData = () => {
+    const limit = this.state.articlesPerPage;
+    const offset = (this.state.activePage - 1) * 10;
+    const tag = this.state.activeTag;
 
-    let articles = this.props.article.articles;
+    fetch(
+      articlesURL + `/?offset=${offset}&limit=${limit}` + (tag && `&tag=${tag}`)
+    )
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        } else {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        this.setState({
+          articles: data.articles,
+          error: "",
+          articlesCount: data.articlesCount,
+        });
+      })
+      .catch((err) => {
+        this.setState({ error: "Not able to fetch articles!" });
+      });
+  };
 
-    let tags = articles.reduce((acc, cv) => {
-      acc = acc.concat(cv.tagList);
-      return acc;
-    }, []);
+  updateCurrentPAgeIndex = (index) => {
+    this.setState({ activePage: index }, this.fetchData);
+  };
 
-    let tagList = [...new Set(tags)];
-
+  render() {
+    const {
+      articles,
+      error,
+      articlesCount,
+      articlesPerPage,
+      activePage,
+      activeTag,
+    } = this.state;
     return (
       <>
+        <Header />
         <main>
-          <div className="hero">
-            <h1>conduit</h1>
-            <h2>A place to share your knowledge!</h2>
-          </div>
+          <Banner />
           <div className="container">
             <div className="flex jc-between al-start">
               <article className="flex-60">
-                <div className="article-heading">
-                  <h3>Global Feed</h3>
-                </div>
-                <div className="articles">
-                  {articles.map((article, i) => (
-                    <section key={i} className="article">
-                      <div className="flex jc-start al-center">
-                        <img src={article.author.image} alt="icon"></img>
-                        <div>
-                          <h3>{article.author.username}</h3>
-                          <p className="date">{article.createdAt}</p>
-                        </div>
-                      </div>
-                      <h2>{article.title}</h2>
-                      <p className="des">{article.description}</p>
-                      <div className="flex jc-between al-center">
-                        <Link to={`/article/${article.slug}`}>
-                          <button>Read more...</button>
-                        </Link>
-
-                        <ul className="flex ">
-                          {article.tagList.map((tag, i) => (
-                            <li key={i} className="taglist">
-                              {tag}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <hr />
-                    </section>
-                  ))}
-                </div>
+                <FeedNav activeTag={activeTag} emptyTag={this.emptyTag} />
+                <Articles articles={articles} error={error} />
+                <Pagination
+                  articlesCount={articlesCount}
+                  articlesPerPage={articlesPerPage}
+                  activePage={activePage}
+                  updateCurrentPAgeIndex={this.updateCurrentPAgeIndex}
+                />
               </article>
               <article className="flex-30">
                 <div className="tags">
                   <h3>Popular Tags</h3>
-                  <ul className="flex flex-wrap">
-                    {tagList.map((list, i) => {
-                      return (
-                        <Link activeClassName="tag" key={i} to={`/${list}`}>
-                          <li className="tag">{list}</li>
-                        </Link>
-                      );
-                    })}
-                  </ul>
+                  <Tags addTag={this.addTag} />
                 </div>
               </article>
             </div>
