@@ -25,7 +25,7 @@ function Articles(props) {
           <div className="flex jc-between al-start">
             <div className="flex jc-start al-center">
               <img
-                src={article.author.image}
+                src={article.author.image || "/image/smiley.jpg"}
                 alt={article.author.username}
               ></img>
               <div>
@@ -34,7 +34,7 @@ function Articles(props) {
               </div>
             </div>
             <div className="heart">
-              <i class="fa fa-heart fa-xs" aria-hidden="true"></i>
+              <i className="fa fa-heart fa-xs" aria-hidden="true"></i>
               <span>{article.favoritesCount}</span>
             </div>
           </div>

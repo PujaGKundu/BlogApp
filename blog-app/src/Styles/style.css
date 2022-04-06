@@ -227,6 +227,7 @@ table {
 body {
   font-family: "Nunito", sans-serif;
   line-height: 1.5;
+  margin-bottom: 3rem;
 }
 
 .container {
@@ -281,6 +282,11 @@ body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+}
+
+.mr-bottom {
+  margin-bottom: 10rem;
+  margin-top: 5rem;
 }
 
 .logo {
@@ -345,6 +351,7 @@ hr {
   background-color: #f3f3f3;
   padding: 1rem;
   margin-left: 1rem;
+  cursor: pointer;
 }
 
 .tag {
@@ -354,6 +361,7 @@ hr {
   padding: 0.2rem 0.5rem;
   margin-right: 0.3rem;
   margin-top: 0.3rem;
+  cursor: pointer;
 }
 
 .article {
@@ -366,6 +374,7 @@ hr {
   border: 1px solid #5cb85c;
   color: #5cb85c;
   border-radius: 0.3rem;
+  cursor: pointer;
 }
 
 .article .heart i {
@@ -412,6 +421,7 @@ button {
   cursor: pointer;
   margin-top: 1.5rem;
   color: #818a91;
+  font-size: 1rem;
 }
 
 .taglist {
@@ -469,6 +479,7 @@ textarea {
   border-radius: 0.3rem;
   outline: none;
   color: #818a91;
+  font-family: "Nunito", sans-serif;
 }
 
 .submit {
@@ -479,8 +490,9 @@ textarea {
   border-radius: 0.3rem;
   font-size: 1rem;
   position: absolute;
-  right: -1.4rem;
+  right: -2rem;
   bottom: -4rem;
+  width: 200px;
 }
 
 .logout {
@@ -488,6 +500,8 @@ textarea {
   border: 1px solid brown;
   padding: 0.8rem 1.6rem;
   border-radius: 0.3rem;
+  position: absolute;
+  left: 29rem;
 }
 
 .submit:hover {

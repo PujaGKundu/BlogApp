@@ -1,11 +1,11 @@
 import ProfileHero from "./ProfileHero";
 import ProfileNav from "./ProfileNav";
 
-function Profile() {
+function Profile(props) {
   return (
     <>
-      <ProfileHero />
-      <ProfileNav />
+      <ProfileHero user={props.user} />
+      <ProfileNav user={props.user} />
     </>
   );
 }

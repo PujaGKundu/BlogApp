@@ -1,7 +1,7 @@
 import Loader from "./Loader";
 import React from "react";
 import { articlesURL } from "../utils/constant";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 class IndivisualArticle extends React.Component {
   state = {
@@ -69,16 +69,22 @@ class IndivisualArticle extends React.Component {
               ))}
             </ul>
             <hr />
-            <h6 className="flex">
-              <Link className="link" to="/signup">
-                Sign up{" "}
-              </Link>
-              &nbsp; or &nbsp;
-              <Link className="link" to="/signin">
-                Sign in
-              </Link>
-              &nbsp; to add comments on this article.
-            </h6>
+            {this.props.user === null ? (
+              <center>
+                <h6 className="flex">
+                  <Link className="link" to="/signup">
+                    Sign up{" "}
+                  </Link>
+                  &nbsp; or &nbsp;
+                  <Link className="link" to="/signin">
+                    Sign in
+                  </Link>
+                  &nbsp; to add comments on this article.
+                </h6>
+              </center>
+            ) : (
+              ""
+            )}
           </div>
         </main>
       </>
@@ -86,4 +92,4 @@ class IndivisualArticle extends React.Component {
   }
 }
 
-export default IndivisualArticle;
+export default withRouter(IndivisualArticle);

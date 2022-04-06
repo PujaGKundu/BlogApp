@@ -62,7 +62,7 @@ class SignUp extends React.Component {
 
   render() {
     let { username, email, password } = this.state.errors;
-    let message = this.state.message;
+
     return (
       <div className="container">
         <h1>Sign Up</h1>
@@ -70,7 +70,6 @@ class SignUp extends React.Component {
           <h3 className="account">Have an account?</h3>
         </NavLink>
         <form onSubmit={this.handleSubmit}>
-          <span className="error">{message}</span>
           <input
             type="text"
             name="username"

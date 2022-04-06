@@ -62,7 +62,7 @@ function AuthHeader() {
           to="/"
           exact
         >
-          <i class="fa fa-home" aria-hidden="true"></i>
+          <i className="fa fa-home" aria-hidden="true"></i>
           Home
         </NavLink>
       </li>
@@ -73,7 +73,7 @@ function AuthHeader() {
           }
           to="/new-post"
         >
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
           New Article
         </NavLink>
       </li>
@@ -84,7 +84,7 @@ function AuthHeader() {
           }
           to="/settings"
         >
-          <i class="fa fa-cog" aria-hidden="true"></i>
+          <i className="fa fa-cog" aria-hidden="true"></i>
           Settings
         </NavLink>
       </li>
@@ -95,7 +95,7 @@ function AuthHeader() {
           }
           to="/profile"
         >
-          <i class="fa fa-user" aria-hidden="true"></i>
+          <i className="fa fa-user" aria-hidden="true"></i>
           Profile
         </NavLink>
       </li>

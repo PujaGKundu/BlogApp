@@ -13,6 +13,7 @@ $black: black;
 body {
   font-family: "Nunito", sans-serif;
   line-height: 1.5;
+  margin-bottom: 3rem;
 }
 
 .container {
@@ -52,6 +53,11 @@ body {
 
 .al-start {
   align-items: flex-start;
+}
+
+.mr-bottom {
+  margin-bottom: 10rem;
+  margin-top: 5rem;
 }
 
 .logo {
@@ -114,6 +120,7 @@ hr {
   background-color: $tertary;
   padding: 1rem;
   margin-left: 1rem;
+  cursor: pointer;
 }
 
 .tag {
@@ -123,6 +130,7 @@ hr {
   padding: 0.2rem 0.5rem;
   margin-right: 0.3rem;
   margin-top: 0.3rem;
+  cursor: pointer;
 }
 
 .article {
@@ -133,6 +141,7 @@ hr {
     border: 1px solid $primary;
     color: $primary;
     border-radius: 0.3rem;
+    cursor: pointer;
     i {
       color: $primary;
     }
@@ -178,6 +187,7 @@ button {
   cursor: pointer;
   margin-top: 1.5rem;
   color: $secondary;
+  font-size: 1rem;
 }
 
 .taglist {
@@ -234,6 +244,7 @@ textarea {
   border-radius: 0.3rem;
   outline: none;
   color: $secondary;
+  font-family: "Nunito", sans-serif;
 }
 
 .submit {
@@ -244,8 +255,9 @@ textarea {
   border-radius: 0.3rem;
   font-size: 1rem;
   position: absolute;
-  right: -1.4rem;
+  right: -2rem;
   bottom: -4rem;
+  width: 200px;
 }
 
 .logout {
@@ -253,6 +265,8 @@ textarea {
   border: 1px solid brown;
   padding: 0.8rem 1.6rem;
   border-radius: 0.3rem;
+  position: absolute;
+  left: 29rem;
 }
 
 .submit:hover {

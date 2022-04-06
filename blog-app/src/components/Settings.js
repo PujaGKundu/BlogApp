@@ -1,75 +1,138 @@
 import React from "react";
+import { userVerifyURL } from "../utils/constant";
+import { withRouter } from "react-router";
 
 class Settings extends React.Component {
   state = {
-    url: "",
-    username: "",
-    bio: "",
-    email: "",
-    password: "",
-  };
-
-  handleInput = ({ target }) => {
-    let { name, value } = target;
-
-    this.setState({ [name]: value });
+    user: null,
   };
 
   handleSubmit = (event) => {
+    fetch(userVerifyURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${this.props.user.token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({ user });
+      });
+  };
+
+  //updateUserData
+  updateUserData = (event) => {
     event.preventDefault();
+
+    let data = {
+      user: {
+        image: event.target.image.value,
+        username: event.target.username.value,
+        bio: event.target.bio.value,
+      },
+    };
+
+    fetch(userVerifyURL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${this.props.user.token}`,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        this.setState({ user: { user } });
+        this.props.history.push("/");
+      });
+  };
+
+  handleFormChange = (target, field) => {
+    this.setState({
+      user: {
+        user: {
+          [field]: target.value,
+        },
+      },
+    });
+  };
+
+  handleLogOut = () => {
+    localStorage.clear();
+    window.location.href = "/";
   };
 
   render() {
+    let user = this.props.user;
     return (
-      <div className="container">
-        <form onSubmit={this.handleSubmit}>
-          <h1>Your Settings</h1>
-          <input
-            type="text"
-            name="url"
-            value={this.state.url}
-            onChange={this.handleInput}
-            placeholder="URL of profile picture"
-          />
-          <input
-            type="text"
-            name="username"
-            value={this.state.username}
-            onChange={this.handleInput}
-            placeholder="Username"
-          />
-          <textarea
-            name="bio"
-            rows="7"
-            value={this.state.bio}
-            onChange={this.handleInput}
-            placeholder="Short bio about you"
-          />
-          <input
-            type="email"
-            name="email"
-            value={this.state.email}
-            onChange={this.handleInput}
-            placeholder="Enter Email"
-          />
-          <input
-            type="password"
-            name="password"
-            value={this.state.password}
-            onChange={this.handleInput}
-            placeholder="New Password"
-          />
-          <button className="submit" type="submit">
-            Update Settings
-          </button>
-        </form>
-        <hr />
-        <button className="logout" type="logout">
-          Or click here to logout.
-        </button>
-      </div>
+      <>
+        <div className="container">
+          <div>
+            <form
+              onSubmit={(event) => {
+                this.updateUserData(event);
+              }}
+            >
+              <h1>Your Settings</h1>
+              <input
+                type="url"
+                name="image"
+                value={this.state.image}
+                onChange={(event) => {
+                  this.handleFormChange(event.target, "image");
+                }}
+                placeholder="URL of profile picture"
+              />
+              <input
+                type="text"
+                name="username"
+                value={user.username}
+                placeholder="Username"
+                disabled
+              />
+              <textarea
+                name="bio"
+                rows="7"
+                value={this.state.bio}
+                onChange={(event) => {
+                  this.handleFormChange(event.target, "bio");
+                }}
+                placeholder="Short bio about you"
+              />
+              <input
+                type="email"
+                name="email"
+                value={user.email}
+                placeholder="Enter Email"
+                disabled
+              />
+              <input
+                type="password"
+                name="password"
+                value={this.state.password}
+                placeholder="New Password"
+                disabled
+              />
+              <button className="submit" type="submit">
+                Update Settings
+              </button>
+            </form>
+          </div>
+          <div className="mr-bottom">
+            <hr align="center" width="800px" />
+            <button
+              className="logout"
+              type="submit"
+              onClick={this.handleLogOut}
+            >
+              Or click here to logout.
+            </button>
+          </div>
+        </div>
+      </>
     );
   }
 }
 
-export default Settings;
+export default withRouter(Settings);
