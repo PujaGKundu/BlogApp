@@ -1,0 +1,36 @@
+//header{
+.header {
+  padding: 1rem;
+  background-color: $gray;
+  margin-bottom: 2rem;
+  strong {
+    font-size: 2rem;
+    font-weight: 900;
+    color: $pri;
+    font-style: italic;
+  }
+  .header-nav {
+    svg {
+      margin-right: 0.4rem;
+    }
+    & > * {
+      margin-right: 1rem;
+    }
+    a:hover {
+      background-color: chocolate;
+    }
+    .active {
+      background-color: chocolate;
+    }
+  }
+}
+footer {
+  padding: 1rem;
+  background-color: $gray;
+  margin-top: 1rem;
+  small {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: $text-gray;
+  }
+}
