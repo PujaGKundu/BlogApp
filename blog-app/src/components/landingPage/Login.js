@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { Login_URL } from '../../utils/constants';
+import React, { Component } from "react";
+import { NavLink, withRouter } from "react-router-dom";
+import { Login_URL } from "../../utils/constants";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       errors: {
-        email: '',
-        password: '',
+        email: "",
+        password: "",
       },
-      data: { email: '', password: '' },
+      data: { email: "", password: "" },
     };
   }
 
@@ -36,9 +36,9 @@ class Login extends Component {
     };
 
     fetch(Login_URL, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
@@ -52,7 +52,7 @@ class Login extends Component {
       })
       .then((user) => {
         this.props.updateLoggedUser(user);
-        this.props.history.push('/');
+        this.props.history.push("/");
       })
       .catch((errors) => {
         this.setState((prevState) => {
@@ -65,45 +65,41 @@ class Login extends Component {
   };
 
   render() {
+    let { email, password } = this.state.errors;
     return (
-      <section className='login-sec'>
-        <h2 className='sec-heading'>Login Page</h2>
-        <div className='container '>
-          <form onSubmit={(event) => this.handleLoginUser(event)}>
-            <fieldset>
-              <label>Enter Email</label>
-              <input
-                type='email'
-                name='email'
-                id='loginEmail'
-                value={this.state.data.email}
-                onChange={(event) => {
-                  this.handleChange(event, 'email');
-                }}
-              />
-              <span>{this.state.errors.email}</span>
-            </fieldset>
-            <fieldset>
-              <label>Enter Password</label>
-              <input
-                type='password'
-                name='password'
-                id='loginPassword'
-                value={this.state.data.password}
-                onChange={(event) => {
-                  this.handleChange(event, 'password');
-                }}
-              />
-              <span>{this.state.errors.password}</span>
-            </fieldset>
-            <fieldset className='flex center'>
-              <button type='submit' className='btn btn-pri'>
-                Submit
-              </button>
-            </fieldset>
-          </form>
-        </div>
-      </section>
+      <div className="container">
+        <h1>Sign in</h1>
+        <NavLink activeClassName="account-color" to="/users/signUp">
+          <h3 className="account">Need an account?</h3>
+        </NavLink>
+        <form onSubmit={(event) => this.handleLoginUser(event)}>
+          <input
+            type="email"
+            name="email"
+            onChange={(event) => {
+              this.handleChange(event, "email");
+            }}
+            placeholder="Email"
+            className={email && "error"}
+          />
+          <span className="error">{email}</span>
+
+          <input
+            type="password"
+            name="password"
+            onChange={(event) => {
+              this.handleChange(event, "password");
+            }}
+            placeholder="Password"
+            className={password && "error"}
+          />
+          <span className="error">{password}</span>
+
+          <button className="submit" type="submit" disabled={email || password}>
+            Sign In
+          </button>
+        </form>
+      </div>
     );
   }
 }

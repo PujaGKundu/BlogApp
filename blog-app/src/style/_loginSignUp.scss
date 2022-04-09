@@ -1,39 +1,55 @@
 //login-sec
 
-.login-sec {
-  .sec-heading {
-    color: $pri;
-  }
-  form {
-    background: linear-gradient(
-      to top right,
-      rgb(105, 202, 226),
-      rgb(11, 114, 231)
-    );
-    padding: 1rem;
-    max-width: 400px;
-    margin: 3rem auto;
-    border-radius: 10px;
+.account {
+  text-align: center;
+  text-decoration: none;
+  color: $pri;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
 
-    input {
-      width: 100%;
-      margin: 1rem 0;
-      border-radius: 10px;
-      padding: 0.3rem 0;
-      border: none;
-    }
-    label {
-      font-size: 1rem;
-      font-weight: 700;
-      color: wheat;
-    }
-    span {
-      color: rgb(236, 32, 32);
-      font-size: 0.7rem;
-    }
+form {
+  width: 600px;
+  margin: 0 auto;
+  position: relative;
+  margin-top: 2rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.6rem 1rem;
+  font-size: 1.3rem;
+  border: 1px solid $sec;
+  border-radius: 0.3rem;
+  outline: none;
+  color: $sec;
+  font-family: "Nunito", sans-serif;
+}
+
+.submit {
+  background-color: $pri;
+  color: white;
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+  position: absolute;
+  right: -2rem;
+  bottom: -4rem;
+  width: 200px;
+  &:hover {
+    background-color: #367a36;
   }
-  .btn-pri:hover {
-    background-color: green;
-    color: white;
-  }
+}
+
+.error {
+  color: brown;
+  font-size: 0.8rem;
+}
+
+button :disabled {
+  background-color: $sec;
+  color: $gray;
 }

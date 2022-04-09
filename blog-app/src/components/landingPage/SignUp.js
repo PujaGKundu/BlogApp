@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { Register_URL } from '../../utils/constants';
+import React, { Component } from "react";
+import { NavLink, withRouter } from "react-router-dom";
+import { Register_URL } from "../../utils/constants";
 
 class SignUp extends Component {
   constructor(props) {
@@ -28,9 +28,9 @@ class SignUp extends Component {
     };
 
     fetch(Register_URL, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
@@ -45,9 +45,9 @@ class SignUp extends Component {
       .then((userData) => {
         this.setState({
           data: {
-            email: '',
-            username: '',
-            password: '',
+            email: "",
+            username: "",
+            password: "",
             errors: {
               email: null,
               username: null,
@@ -55,7 +55,7 @@ class SignUp extends Component {
             },
           },
         });
-        this.props.history.push('/users/login');
+        this.props.history.push("/users/login");
       })
       .catch((errors) => {
         this.setState((prevState) => {
@@ -71,12 +71,12 @@ class SignUp extends Component {
 
   handleSignUpError = (target, field) => {
     switch (field) {
-      case 'email':
-        if (target.value.length < 8 || !target.value.includes('@')) {
+      case "email":
+        if (target.value.length < 8 || !target.value.includes("@")) {
           this.setState({
             data: {
               errors: {
-                email: 'Email must be 8 char long and include @ symbol',
+                email: "Email must be 8 char long and include @ symbol",
               },
             },
           });
@@ -91,12 +91,12 @@ class SignUp extends Component {
         }
         break;
 
-      case 'username':
+      case "username":
         if (target.value.length < 5) {
           this.setState({
             data: {
               errors: {
-                username: 'username must be 5 char long ',
+                username: "username must be 5 char long ",
               },
             },
           });
@@ -111,12 +111,12 @@ class SignUp extends Component {
         }
         break;
 
-      case 'password':
+      case "password":
         if (target.value.length < 8) {
           this.setState({
             data: {
               errors: {
-                password: 'Password must be 8 char long ',
+                password: "Password must be 8 char long ",
               },
             },
           });
@@ -137,61 +137,62 @@ class SignUp extends Component {
   };
 
   render() {
+    let { username, email, password } = this.state.data.errors;
+
     return (
-      <section className='login-sec'>
-        <h2 className='sec-heading'>Sign-Up Page</h2>
-        <div className='container '>
-          <form
-            onSubmit={(event) => {
-              this.handleUserRegistration(event);
+      <div className="container">
+        <h1>Sign Up</h1>
+        <NavLink activeClassName="account-color" to="/users/login">
+          <h3 className="account">Have an account?</h3>
+        </NavLink>
+        <form
+          onSubmit={(event) => {
+            this.handleUserRegistration(event);
+          }}
+        >
+          <input
+            type="text"
+            name="username"
+            onChange={(event) => {
+              this.handleSignUpError(event.target, "username");
             }}
+            placeholder="Your name"
+            className={username && "error"}
+          />
+          <span className="error">{username}</span>
+
+          <input
+            type="email"
+            name="email"
+            onChange={(event) => {
+              this.handleSignUpError(event.target, "email");
+            }}
+            placeholder="Email"
+            className={email && "error"}
+          />
+          <span className="error">{email}</span>
+
+          <input
+            type="password"
+            name="password"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+            onChange={(event) => {
+              this.handleSignUpError(event.target, "password");
+            }}
+            placeholder="Password"
+            className={password && "error"}
+          />
+          <span className="error">{password}</span>
+
+          <button
+            className="submit"
+            type="submit"
+            disabled={email || password || username}
           >
-            <fieldset>
-              <label>Enter Email *</label>
-              <input
-                type='email'
-                name='email'
-                id='loginEmail'
-                onChange={(event) => {
-                  this.handleSignUpError(event.target, 'email');
-                }}
-              />
-              <span>{this.state.data.errors.email}</span>
-            </fieldset>
-
-            <fieldset>
-              <label>Enter Username *</label>
-              <input
-                type='text'
-                name='username'
-                id='loginUsername'
-                onChange={(event) => {
-                  this.handleSignUpError(event.target, 'username');
-                }}
-              />
-              <span> {this.state.data.errors.username}</span>
-            </fieldset>
-
-            <fieldset>
-              <label>Enter Password *</label>
-              <input
-                type='text'
-                name='password'
-                id='loginPassword'
-                onChange={(event) => {
-                  this.handleSignUpError(event.target, 'password');
-                }}
-              />
-              <span> {this.state.data.errors.password}</span>
-            </fieldset>
-            <fieldset className='flex center'>
-              <button type='submit' className='btn btn-pri'>
-                Submit
-              </button>
-            </fieldset>
-          </form>
-        </div>
-      </section>
+            Sign Up
+          </button>
+        </form>
+      </div>
     );
   }
 }
