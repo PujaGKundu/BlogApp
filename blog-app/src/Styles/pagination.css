@@ -1,0 +1,36 @@
+.pagination {
+  margin: 2rem 0;
+  border-top: 1px solid #818a91;
+  padding: 3rem;
+}
+
+.pagination-count span {
+  color: #5cb85c;
+  border: 1px solid;
+  margin: 1px;
+  padding: 0.5rem 0.7rem;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.pagination-count:last-child {
+  border-right: 1px solid;
+}
+
+.pagination-count .active {
+  background-color: #5cb85c;
+  color: white;
+}
+
+.prev,
+.next {
+  background: #fff;
+  border: none;
+  padding: 10px;
+  color: #818a91;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+          box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
+  margin: 0 10px;
+  cursor: pointer;
+}
+/*# sourceMappingURL=pagination.css.map */
